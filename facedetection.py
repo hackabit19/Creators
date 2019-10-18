@@ -8,9 +8,8 @@ Created on Wed Jul 31 19:30:47 2019
 import cv2
 import numpy as np
 
-face_cascade = cv2.CascadeClassifier("D:\Aface\haarcascade_frontalface_default.xml")
+face_cascade = cv2.CascadeClassifier("F://haarcascade_frontalface_default.xml")
 
-eye_cascade = cv2.CascadeClassifier("D:\Aface\haarcascade_eye.xml")
 
 
 cap = cv2.VideoCapture(0)
@@ -25,9 +24,13 @@ while True:
         cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
         roi_gray = gray[y:y+h, x:x+w]
         roi_color = img[y:y+h, x:x+w]
-        eyes = eye_cascade.detectMultiScale(roi_gray)
-        for (ex,ey,ew,eh) in eyes:
-            cv2.rectangle(roi_color, (ex, ey), (ex+ew,ey+eh), (0,255,0), 2)
+        
+            #finding the centroid of the face
+            cX = x + int(w/2)
+            cY = y + int(h/2)
+            
+            cv2.circle(img, (cX, cY), 5, (255, 255, 255), -1)
+            cv2.putText(img, "centroid", (cX - 25, cY - 25),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
     cv2.imshow('img' , img)
     if cv2.waitKey(30) & 0xFF == ord('q'):
         break
