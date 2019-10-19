@@ -34,10 +34,13 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  while(Serial.available()>0)
+  {
 len=Serial.read();                               //reading the length from serial port directed from pyserial
 height=Serial.read();                            //reading the length from serial port directed from pyserial
 depth=Serial.read();                             //reading the length from serial port directed from pyserial
   coordinate_angle(len,height,depth);
+  }
   
 }
 void coordinate_angle(int x,int y,int z)        //function to convert 3d coordinate to spherical coordinates
