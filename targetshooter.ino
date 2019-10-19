@@ -34,9 +34,9 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-len=Serial.read();                               //reading the lenght from serial port directed from pyserial
-height=Serial.read();                            //reading the lenght from serial port directed from pyserial
-depth=Serial.read();                             //reading the lenght from serial port directed from pyserial
+len=Serial.read();                               //reading the length from serial port directed from pyserial
+height=Serial.read();                            //reading the length from serial port directed from pyserial
+depth=Serial.read();                             //reading the length from serial port directed from pyserial
   coordinate_angle(len-50,height,depth);
   coordinate_angle(len,height+66,depth);
   coordinate_angle(len,height,depth+120);
