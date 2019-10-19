@@ -9,7 +9,7 @@ const int dirpin=11;
 Servo s;
 int len,height,depth;
 int pos_step,no_step,pos_servo;
-
+void coordinate_angle(int x,int y,int z);
 
 void setup() {
   // put your setup code here, to run once:
@@ -37,17 +37,16 @@ void loop() {
 len=Serial.read();                               //reading the length from serial port directed from pyserial
 height=Serial.read();                            //reading the length from serial port directed from pyserial
 depth=Serial.read();                             //reading the length from serial port directed from pyserial
-  coordinate_angle(len-50,height,depth);
-  coordinate_angle(len,height+66,depth);
-  coordinate_angle(len,height,depth+120);
+  coordinate_angle(len,height,depth);
+  
 }
 void coordinate_angle(int x,int y,int z)        //function to convert 3d coordinate to spherical coordinates
 {
   float r;
   int i,phi,theta;
   r=sqrt(x*x+y*y+z*z);
-  theta=(atan(y/x)*180)/pi;//angle with the Z axis
-  phi=(atan(sqrt(x*x+y*y)/z)*180)/pi; //angle on the x y plane(servo)
+  phi=(atan(y/x)*180)/pi;//angle with the Z axis
+  theta=(atan(sqrt(x*x+y*y)/z)*180)/pi; //angle on the x y plane(servo)
   pos_servo=s.read();
   Serial.println("Servo Initial Position");
   Serial.println(pos_servo);
