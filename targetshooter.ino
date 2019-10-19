@@ -4,7 +4,7 @@
 #define servo_pin 9
 #define baud_rate 9600
 const int steppin=10;
-const int dirpin=9;
+const int dirpin=11;
 
 Servo s;
 int len,height,depth;
