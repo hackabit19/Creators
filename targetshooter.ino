@@ -45,8 +45,8 @@ void coordinate_angle(int x,int y,int z)        //function to convert 3d coordin
   float r;
   int i,phi,theta;
   r=sqrt(x*x+y*y+z*z);
-  phi=(atan(y/x)*180)/pi;//angle with the Z axis
-  theta=(atan(sqrt(x*x+y*y)/z)*180)/pi; //angle on the x y plane(servo)
+  phi=(atan(y/x)*180)/pi;//angle with the x y axis(servo)
+  theta=(atan(sqrt(x*x+y*y)/z)*180)/pi; //angle on the x z plane(stepper)
   pos_servo=s.read();
   Serial.println("Servo Initial Position");
   Serial.println(pos_servo);
