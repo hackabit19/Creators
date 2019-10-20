@@ -7,9 +7,12 @@ const int steppin=10;
 const int dirpin=11;
 
 Servo s;
+Servo st;
 int len,height,depth;
 int pos_step,no_step,pos_servo;
 void coordinate_angle(int x,int y,int z);
+void trigger();
+void motor();
 
 void setup() {
   // put your setup code here, to run once:
@@ -18,10 +21,12 @@ void setup() {
   //attaching stepper pins with arduino
   pinMode(steppin,OUTPUT);
   pinMode(dirpin,OUTPUT);
+  pinMode(12,OUTPUT);
   Serial.begin(baud_rate); 
   s.write(90); 
-  pos_step=90;
-  no_step=90/1.8;
+  st.attach(8);
+  pos_step=0;
+  no_step=0;
    
   
    /* Serial.println("Enter x:");
@@ -38,7 +43,9 @@ void loop() {
   {
 len=Serial.read();                               //reading the length from serial port directed from pyserial
 height=Serial.read();                            //reading the length from serial port directed from pyserial
-depth=Serial.read();                             //reading the length from serial port directed from pyserial
+depth=Serial.read();       
+//reading the length from serial port directed from pyserial
+  
   coordinate_angle(len,height,depth);
   }
   
@@ -73,7 +80,7 @@ void coordinate_angle(int x,int y,int z)        //function to convert 3d coordin
   Serial.println(pos_servo);
   Serial.println("Stepper Initial Position");
   Serial.println(pos_step);
-  if(pos_step<theta)
+  /*if(pos_step<theta)
   {
     digitalWrite(dirpin,HIGH);
     for(i=no_step;i<=(theta/1.8);i++)
@@ -99,7 +106,37 @@ void coordinate_angle(int x,int y,int z)        //function to convert 3d coordin
     }
     pos_step=theta;
     no_step=theta/1.8;
-  }
+  }*/
+  motor(theta);
     Serial.println("Stepper Final positon");
     Serial.println(pos_step);
+    trigger();  //for triggering the gun
+}
+void trigger()
+{
+  int i;
+  for(i= 120;i>=1;i-=1)     // command to move from 180 degrees to 0 degrees
+  {                                
+    st.write(i);              //command to rotate the servo to the specified angle
+    delay(10);                      
+  }
+}
+void motor(int angle)
+{
+  int t=(angle*1000)/360;
+  if(pos_step<angle)
+  {
+  digitalWrite(10,HIGH);
+  digitalWrite(11,LOW);
+  analogWrite(12,255);
+  delay(t);
+  }
+  else
+  {
+   digitalWrite(11,HIGH);
+  digitalWrite(10,LOW);
+  analogWrite(12,255);
+  delay(t); 
+  }
+  pos_step=angle;
 }
