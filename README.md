@@ -1,4 +1,4 @@
 # Creators
 An automatic target shooter is built using openCV, pySerial and Arduino IDE.
 The python file(facedetection.py) is detecting the frontal face of the human using haarcascade classifier. 
-By the use of pyserial ommunication is established between 
+By the use of pyserial communication is established between python file(.py) and file containing arduino code(
